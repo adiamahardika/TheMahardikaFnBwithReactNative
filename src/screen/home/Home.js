@@ -71,7 +71,7 @@ class HomeScreen extends Component{
     )
     }
     render(){
-        const {products} = this.props
+        const {products, categories} = this.props
         return(
             <Container>
             <View searchBar rounded containerStyle={{ backgroundColor: '#e91e63', borderWidth: 1, borderRadius: 5 }}>
@@ -85,9 +85,12 @@ class HomeScreen extends Component{
               style={{height: 50, width: 100}}
               onValueChange={this.filterProduct}>
               <Picker.Item label="All" value="" />
-              <Picker.Item label="Indonesian Food" value="1" />
+              {categories.map((category, index) =>
+              <Picker.Item
+              label={category.name} value={category.id}/>)}
+              {/* <Picker.Item label="Indonesian Food" value="1" />
               <Picker.Item label="Beverages" value="2" />
-              <Picker.Item label="Western" value="3" />
+              <Picker.Item label="Western" value="3" /> */}
             </Picker>
             </View>
             <Content>
@@ -143,7 +146,8 @@ const styles = StyleSheet.create({
 })
 const mapStateToProps = (state) => {
     return {
-      products: state.products.products
+      products: state.products.products,
+      categories: state.category.categories
     }
   }
 export default connect(mapStateToProps)(HomeScreen)
