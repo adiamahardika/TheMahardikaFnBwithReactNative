@@ -3,6 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, AsyncStorage, FlatList, Picker, Ima
 import { Container, View, Card, Content, Footer, FooterTab, Button, Item, Input, Icon } from 'native-base'
 import { connect } from 'react-redux'
 import { getAllProduct, searchProduct, filterProduct } from '../../redux/actions/product'
+import {getAllCategory} from '../../redux/actions/category'
+import { addCart } from '../../redux/actions/cart'
 class HomeScreen extends Component{
     state = {
         product:'',
@@ -24,6 +26,8 @@ class HomeScreen extends Component{
             this.props.navigation.navigate('Login')
         }
         this.getAllProduct()
+        this.props.dispatch(getAllCategory())
+
     }
     onLogout(){
         AsyncStorage.removeItem('user-id');
@@ -48,10 +52,30 @@ class HomeScreen extends Component{
     }
     parseToRupiah(number)
     {
-	var rupiah = '';		
-	var numberrev = number.toString().split('').reverse().join('')
-	for(var i = 0; i < numberrev.length; i++) if(i%3 == 0) rupiah += numberrev.substr(i,3)+'.'
-	return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('')
+      var rupiah = '';		
+      var numberrev = number.toString().split('').reverse().join('')
+      for(var i = 0; i < numberrev.length; i++) if(i%3 == 0) rupiah += numberrev.substr(i,3)+'.'
+      return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('')
+    }
+
+    async onAddCart (item){
+      const cart = this.props.cart
+      let i
+      cart.map(cart => {
+        if (cart.id === item.id) {
+          i = 0
+          return alert('Product have been added')
+        }
+        return item
+      })
+  
+      if (i !== 0) {
+        const InitialTotal = this.props.total
+        const product = item
+        item.qty = 1
+        item.total = InitialTotal + product.price
+        await this.props.dispatch(addCart(item))
+      }
     }
     renderRow = ({item}) => {
     return(
@@ -63,7 +87,7 @@ class HomeScreen extends Component{
             <Text style={{ fontSize: 15, marginLeft: 10, marginBottom: 10 }}>{this.parseToRupiah(item.price)}</Text>
             <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity style={{ marginLeft: 10 }} >
-                    <Text style={{ fontSize: 17, color: "#4285f4" }}>Add Product</Text>
+                    <Text style={{ fontSize: 17, color: "#4285f4" }} onPress={()=> this.onAddCart(item)}>Add Product</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -88,9 +112,6 @@ class HomeScreen extends Component{
               {categories.map((category, index) =>
               <Picker.Item
               label={category.name} value={category.id}/>)}
-              {/* <Picker.Item label="Indonesian Food" value="1" />
-              <Picker.Item label="Beverages" value="2" />
-              <Picker.Item label="Western" value="3" /> */}
             </Picker>
             </View>
             <Content>
@@ -111,10 +132,7 @@ class HomeScreen extends Component{
                 <Text style={{  color: "white" }}>Home</Text>
               </Button>
               <Button onPress={() => this.props.navigation.navigate('Product')}>
-                <Text style={{  color: "white" }}>Product</Text>
-              </Button>
-              <Button onPress={() => this.props.navigation.navigate('Category')}>
-                <Text style={{ color: "white" }}>Category</Text>
+                <Text style={{  color: "white" }}>Manage</Text>
               </Button>
               <Button onPress={() => this.props.navigation.navigate('Cart')}>
                 <Text style={{ color: "white" }}>Cart</Text>
@@ -147,7 +165,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
       products: state.products.products,
-      categories: state.category.categories
+      categories: state.category.categories,
+      cart: state.cart.cart,
+      total: state.cart.total
     }
   }
 export default connect(mapStateToProps)(HomeScreen)

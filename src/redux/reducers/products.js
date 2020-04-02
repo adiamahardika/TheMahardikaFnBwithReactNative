@@ -1,16 +1,16 @@
 const initialState = {
     products: []
 }
-//console.log(initialState.products)
 
 const products = (state = initialState, action) => {
    switch(action.type){
         case 'GET_PRODUCT_PENDING':
-           return{
-               ...state
-               
-           }
-        case 'GET_PRODUCT_REJECTED':
+            return{
+                ...state
+                
+            }
+            case 'GET_PRODUCT_REJECTED':
+                console.log('siniii')
             return{
                 ...state
                 

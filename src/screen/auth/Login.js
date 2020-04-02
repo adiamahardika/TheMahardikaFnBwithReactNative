@@ -59,7 +59,10 @@ class LoginScreen extends Component {
                          <Input style={styles.inputStyle} secureTextEntry={true} onChangeText={this.onChangePassword}/>
                      </Item>
                  </Form>
-                 <Button block light style={styles.footerBottomStyle} onPress={this.onSubmit}>
+                 {/* <Button block light style={styles.footerBottomStyle} onPress={this.onSubmit}>
+                     <Text style={styles.loginButton}>Login</Text>
+                 </Button> */}
+                 <Button block light style={styles.footerBottomStyle} onPress={this.props.navigation.navigate('Home')}>
                      <Text style={styles.loginButton}>Login</Text>
                  </Button>
             </View>

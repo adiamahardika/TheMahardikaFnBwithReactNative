@@ -42,6 +42,7 @@ export const searchProduct = (data) => {
 }
 
 export const filterProduct = (data) => {
+    console.log('filter')
     return {
         type: 'FILTER_PRODUCT',
         payload: axios({

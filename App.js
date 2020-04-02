@@ -11,13 +11,9 @@ import ProductScreen from './src/screen/product/Products'
 import HomeScreen from './src/screen/home/Home'
 import AddProductScreen from './src/screen/product/AddProduct'
 import EditProductScreen from './src/screen/product/EditProduct'
+import CartScreen from './src/screen/cart/cart'
 
 
-// const tabNavigator = createBottomTabNavigator(
-//   {
-//     Home: HomeScreen,
-//   }
-// )
 const homeNavigator = createStackNavigator(
   { 
     Home: {
@@ -36,10 +32,16 @@ const homeNavigator = createStackNavigator(
     Product: ProductScreen,
     AddProduct: AddProductScreen,
     EditProduct: EditProductScreen,
+    Cart: CartScreen
 
   },
   {
     initialRouteName: 'Login',
+  }
+)
+const tabNavigator = createBottomTabNavigator(
+  {
+    Home: HomeScreen,
   }
 )
 const AppContainer = createAppContainer(homeNavigator)
