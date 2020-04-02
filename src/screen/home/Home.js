@@ -6,6 +6,7 @@ import { getAllProduct, searchProduct, filterProduct } from '../../redux/actions
 import {getAllCategory} from '../../redux/actions/category'
 import { addCart } from '../../redux/actions/cart'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { ScrollView } from 'react-native-gesture-handler';
 class HomeScreen extends Component{
     state = {
         product:'',
@@ -105,8 +106,59 @@ class HomeScreen extends Component{
             <Input placeholder="Search" onChangeText={this.searchProduct} />
             </Item>
             </View>
-            <View style={styles.picker}>
-            <Picker
+            <View style={{
+              flexDirection: 'row',
+              marginTop: 10,
+              marginBottom: 10,
+              marginLeft: 10,
+            }} selectedValue={this.state.category}>
+              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+              <TouchableOpacity
+              style={{
+                backgroundColor: '#E91E63',
+                borderRadius: 25,
+                width: 100,
+                padding: 3
+              }}
+              onValueChange={this.filterProduct}
+              value=""
+              >
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontFamily: 'sans-serif-condensed',
+                  color: 'white',
+                }}>
+                All
+              </Text>
+              </TouchableOpacity>
+
+              {categories.map((category, index) => 
+              <TouchableOpacity
+              style={{
+                backgroundColor: '#E91E63',
+                borderRadius: 25,
+                width: 100,
+                padding: 5,
+                marginLeft: 5
+              }}
+              selectedValue={this.state.category} onValueChange={this.filterProduct}
+              value={category.id}
+              >
+              <Text
+              ellipsizeMode='tail' numberOfLines={1}
+                style={{
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontFamily: 'sans-serif-condensed',
+                  color: 'white',
+                }}>
+                {category.name}
+              </Text>
+              </TouchableOpacity>)}
+              </ScrollView>
+            {/* <Picker
               selectedValue={this.state.category}
               style={{height: 50, width: 100}}
               onValueChange={this.filterProduct}>
@@ -114,7 +166,7 @@ class HomeScreen extends Component{
               {categories.map((category, index) =>
               <Picker.Item
               label={category.name} value={category.id}/>)}
-            </Picker>
+            </Picker> */}
             </View>
             <Content>
             <View style={{ marginTop: 10, marginLeft: 10, marginBottom: 10 }}>

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import { getAllProduct, deleteProduct, searchProduct, filterProduct } from '../../redux/actions/product'
 // import Spinner from '../spinner/Spinner';
-
+import { ScrollView } from 'react-native-gesture-handler';
 class ProductScreen extends Component {
   state = {
     product:'',
@@ -83,7 +83,7 @@ class ProductScreen extends Component {
   }
 
   render () {
-    const {products} = this.props
+    const {products, categories} = this.props
     return (
       <Container>
       <View searchBar rounded containerStyle={{ backgroundColor: '#e91e63', borderWidth: 1, borderRadius: 5 }}>
@@ -91,8 +91,60 @@ class ProductScreen extends Component {
             <Input placeholder="Search" onChangeText={this.searchProduct} />
           </Item>
         </View>
-        <View style={styles.picker}>
-            <Picker
+        {/* <View style={styles.picker}> */}
+        <View style={{
+              flexDirection: 'row',
+              marginTop: 10,
+              marginBottom: 10,
+              marginLeft: 10,
+            }} selectedValue={this.state.category}>
+              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+              <TouchableOpacity
+              style={{
+                backgroundColor: '#E91E63',
+                borderRadius: 25,
+                width: 100,
+                padding: 3
+              }}
+              onValueChange={this.filterProduct}
+              value=""
+              >
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontFamily: 'sans-serif-condensed',
+                  color: 'white',
+                }}>
+                All
+              </Text>
+              </TouchableOpacity>
+
+              {categories.map((category, index) => 
+              <TouchableOpacity
+              style={{
+                backgroundColor: '#E91E63',
+                borderRadius: 25,
+                width: 100,
+                padding: 5,
+                marginLeft: 5
+              }}
+              selectedValue={this.state.category} onValueChange={this.filterProduct}
+              value={category.id}
+              >
+              <Text
+              ellipsizeMode='tail' numberOfLines={1}
+                style={{
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontFamily: 'sans-serif-condensed',
+                  color: 'white',
+                }}>
+                {category.name}
+              </Text>
+              </TouchableOpacity>)}
+              </ScrollView>
+            {/* <Picker
               selectedValue={this.state.category}
               style={{height: 50, width: 100}}
               onValueChange={this.filterProduct}>
@@ -100,7 +152,7 @@ class ProductScreen extends Component {
               <Picker.Item label="Indonesian Food" value="1" />
               <Picker.Item label="Beverages" value="2" />
               <Picker.Item label="Western" value="3" />
-            </Picker>
+            </Picker> */}
         </View>
       <View>
           <View style={{ marginTop: 10, marginLeft: 10, marginBottom: 10 }}>
@@ -133,7 +185,8 @@ const styles = StyleSheet.create({
 })
 const mapStateToProps = (state) => {
   return {
-    products: state.products.products
+    products: state.products.products,
+    categories: state.category.categories,
   }
 }
 

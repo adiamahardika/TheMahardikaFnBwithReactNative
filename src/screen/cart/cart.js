@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 class CartScreen extends Component {
   state={
     id: AsyncStorage.getItem('user-id')
@@ -95,16 +95,23 @@ class CartScreen extends Component {
             style={{
               fontSize: 18,
               marginLeft: 10,
-              marginBottom: 5,
-              fontFamily: 'monospace',
+              marginBottom: 3,
             }}
             ellipsizeMode="tail"
             numberOfLines={1}>
             {item.name}
           </Text>
+          <Text
+            style={{
+              fontSize: 16,
+              marginLeft: 10,
+              marginBottom: 3,
+            }}>
+            Stock: {item.quantity}
+          </Text>
 
           <View>
-            <Text style={{fontSize: 15, marginLeft: '5%', marginBottom: 5}}>
+            <Text style={{fontSize: 15, marginLeft: '5%'}}>
              @ {this.convertToRupiah(item.price)}
             </Text>
           </View>
@@ -112,42 +119,42 @@ class CartScreen extends Component {
             style={{
               flexDirection: 'row',
               marginHorizontal: '5%',
-              marginTop: 20,
+              marginTop: 5,
             }}>
             <TouchableOpacity
               onPress={() => this.reduceQuantity(item)}
               style={{
-                backgroundColor: 'red',
-                width: '10%',
+                width: '12%',
                 height: '100%',
                 alignItems: 'center',
+                padding: 3
               }}>
-              <Text>-</Text>
+              <Icon name='minus-circle' size={25} color='#E91E63'/>
             </TouchableOpacity>
             <View
-              style={{width: '8%', alignItems: 'center', marginHorizontal: 10}}>
-              <Text style={{fontSize: 16}}>{item.qty}</Text>
+              style={{width: '12%', alignItems: 'center', marginHorizontal: 10, padding: 3}}>
+              <Text style={{fontSize: 20}}>{item.qty}</Text>
             </View>
             <TouchableOpacity
               onPress={() => this.addQuantity(item)}
               style={{
-                backgroundColor: 'red',
-                width: '10%',
+                width: '12%',
                 height: '100%',
                 alignItems: 'center',
+                padding: 3
               }}>
-              <Text>+</Text>
+              <Icon name='plus-circle' size={25} color='#E91E63'/>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.removeItem(item)}
               style={{
-                backgroundColor: 'red',
                 width: '40%',
                 height: '110%',
                 alignItems: 'center',
                 marginHorizontal: '20%',
+                padding: 3
               }}>
-              <Text>Remove</Text>
+              <Icon name='trash-can' size={25} color='#E91E63'/>
             </TouchableOpacity>
           </View>
         </View>
@@ -170,9 +177,9 @@ class CartScreen extends Component {
               keyExtractor={item => item.id}
             />
           </View>
-          <View style={{flexDirection:'row', height:'6%', alignItems:'center'}}>
+          <View style={{flexDirection:'row', height:'6%', alignItems:'center', marginBottom: 5, marginLeft: 5}}>
             <Text style={{fontSize: 16}}>Total : {this.convertToRupiah(total)}</Text>
-            <TouchableOpacity onPress={()=> this.onCheckout(cart)} style={{marginLeft:'30%', width:'25%', height:'70%', alignItems:'center', backgroundColor:'red'}}><Text style={{fontSize: 16}}>Checkout</Text></TouchableOpacity>
+            <TouchableOpacity onPress={()=> this.onCheckout(cart)} style={{marginLeft:'30%', width:'25%', alignItems:'center', backgroundColor:'#4285f4', borderRadius: 25, padding : 3}}><Text style={{fontSize: 18, color: 'white'}}>Checkout</Text></TouchableOpacity>
           </View>
         </View>
         :

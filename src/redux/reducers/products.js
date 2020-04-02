@@ -37,7 +37,7 @@ const products = (state = initialState, action) => {
             return{
                 ...state,
                 
-                products: newDataProducts
+                products: action.payload.data.result
             }
         case 'DELETE_PRODUCT_PENDING':
             return{
@@ -54,7 +54,7 @@ const products = (state = initialState, action) => {
             return{
                 ...state,
                 
-                products: newDataProductsAfterDelete
+                products: action.payload.data.result
             }
         case 'SEARCH_PRODUCT_PENDING':
             return {
