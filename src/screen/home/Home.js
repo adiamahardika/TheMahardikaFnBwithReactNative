@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, AsyncStorage, FlatList, Picker, Image } from 'react-native';
-import { Container, View, Card, Content, Footer, FooterTab, Button, Item, Input, Icon } from 'native-base'
+import { Container, View, Card, Content, Footer, FooterTab, Button, Item, Input } from 'native-base'
 import { connect } from 'react-redux'
 import { getAllProduct, searchProduct, filterProduct } from '../../redux/actions/product'
 import {getAllCategory} from '../../redux/actions/category'
 import { addCart } from '../../redux/actions/cart'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 class HomeScreen extends Component{
     state = {
         product:'',
@@ -79,15 +80,16 @@ class HomeScreen extends Component{
     }
     renderRow = ({item}) => {
     return(
-        <Card style={{maxWidth:165, flex: 1, marginBottom: 5, marginRight:5, borderBottomWidth: 2, borderLeftWidth:1, borderBottomColor: "#e91e63", borderLeftColor:"#e91e63"}}>
-        <Image source={{uri: item.image}} style={{height: 165, width: 165, flex: 1}} />
+        <Card style={{width:165, flex: 1, marginBottom: 5, marginRight:5, borderBottomWidth: 2, borderLeftWidth:1, borderBottomColor: "#e91e63", borderLeftColor:"#e91e63"}}>
+        <Image source={{uri: item.image}} style={{height: 165, flex: 1}} />
         <View style={{ flex: 1, flexDirection: 'column' }}>
-            <Text style={{ fontSize: 14, marginLeft: 10, marginBottom: 5 }}>{item.category}</Text>
-            <Text style={{ fontSize: 16, marginLeft: 10, marginBottom: 10 }}>{item.name}</Text>
-            <Text style={{ fontSize: 15, marginLeft: 10, marginBottom: 10 }}>{this.parseToRupiah(item.price)}</Text>
+            <Text ellipsizeMode='tail' numberOfLines={1} style={{ fontSize: 14, marginLeft: 10, marginBottom: 5, color: '#E91E63' }}>{item.category}</Text>
+            <Text ellipsizeMode='tail' numberOfLines={1} style={{ fontSize: 18, marginLeft: 10, marginBottom: 5, color: '#4285f4' }}>{item.name}</Text>
+            <Text style={{ fontSize: 15, marginLeft: 10, marginBottom: 5 }}>{this.parseToRupiah(item.price)}</Text>
+            <Text ellipsizeMode='tail' numberOfLines={1} style={{ fontSize: 12, marginLeft: 10, marginBottom: 5 }}>Stock: {item.quantity}</Text>
             <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity style={{ marginLeft: 10 }} >
-                    <Text style={{ fontSize: 17, color: "#4285f4" }} onPress={()=> this.onAddCart(item)}>Add Product</Text>
+                <TouchableOpacity style={{ marginLeft: 100, backgroundColor:'#4285f4', padding:5, borderRadius:25, marginBottom: 5 }} >
+                    <Text style={{ fontSize: 14, color: "white" }} onPress={()=> this.onAddCart(item)}>Add Cart</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -127,17 +129,21 @@ class HomeScreen extends Component{
             </View>
             </Content>
             <Footer>
-            <FooterTab>
+            <FooterTab style={{backgroundColor:'#4285f4'}}>
                 <Button onPress={() => this.props.navigation.navigate('Home')}>
-                <Text style={{  color: "white" }}>Home</Text>
+                  <Icon name='home' size={30} color='white'/>
+                <Text style={{ color: "white" }}>Home</Text>
               </Button>
               <Button onPress={() => this.props.navigation.navigate('Product')}>
+              <Icon name='settings' size={30} color='white'/>
                 <Text style={{  color: "white" }}>Manage</Text>
               </Button>
               <Button onPress={() => this.props.navigation.navigate('Cart')}>
+              <Icon name='cart' size={30} color='white'/>
                 <Text style={{ color: "white" }}>Cart</Text>
               </Button>
               <Button onPress={this.onLogout.bind(this)}>
+                <Icon name='logout' size={30} color='white'/>
                 <Text style={{ color: "white" }}>Logout</Text>
               </Button>
             </FooterTab>

@@ -61,8 +61,8 @@ class ProductScreen extends Component {
   }
   renderRow = ({item}) => {
     return(
-      <Card style={{maxWidth:165, flex: 1, marginBottom: 5, marginRight:5, borderBottomWidth: 2, borderLeftWidth:1, borderBottomColor: "#e91e63", borderLeftColor:"#e91e63"}}>
-        <Image source={{uri: item.image}} style={{height: 165, width: 165, flex: 1}} />
+      <Card style={{width:165, flex: 1, marginBottom: 5, marginRight:5, borderBottomWidth: 2, borderLeftWidth:1, borderBottomColor: "#e91e63", borderLeftColor:"#e91e63"}}>
+        <Image source={{uri: item.image}} style={{height: 165, flex: 1}} />
         <View style={{ flex: 1, flexDirection: 'column' }}>
             <Text style={{ fontSize: 14, marginLeft: 10, marginBottom: 5 }}>{item.category}</Text>
             <Text style={{ fontSize: 16, marginLeft: 10, marginBottom: 10 }}>{item.name}</Text>
