@@ -62,22 +62,6 @@ export const sortProduct = (orderBy) => {
     }
 }
 
-// export const paginationProduct = (page) => {
-//     const authorization = localStorage.getItem('token');
-//     const userId = localStorage.getItem("user-id");
-//     return {
-//       type: 'PAGINATION',
-//       payload: axios ({
-//         method: 'GET',
-//         url: `http://localhost:5000/product/?page=${page}`,
-//         headers: {
-//             "authorization": authorization,
-//             "user-id": userId
-//         }
-//       })
-//     }
-//   }
-
 export const patchProduct = (productId, data) => {
     return {
         type: 'PATCH_PRODUCT',
@@ -97,13 +81,3 @@ export const modifyProduct = (sortBy, orderBy, name, category, page ) => {
         })
       }
 }
-
-// export const orderProduct = (data) => {
-//     return {
-//         type: 'ORDER_PRODUCT',
-//         payload: axios({
-//             method: 'GET',
-//             url: `http://localhost:5000/product/?category=${data}`
-//         })
-//     }
-// }

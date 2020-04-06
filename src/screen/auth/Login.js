@@ -12,7 +12,6 @@ class LoginScreen extends Component {
     }
 
     onChangeEmail = (event) =>{
-        console.log(event)
         this.setState({
             email: event
         })
@@ -23,7 +22,6 @@ class LoginScreen extends Component {
         })
     }
      onSubmit = () => {
-         console.log(this.state)
          axios
             .post(`${REACT_APP_API}/user/login`, this.state)
             .then(response => {
@@ -59,10 +57,7 @@ class LoginScreen extends Component {
                          <Input style={styles.inputStyle} secureTextEntry={true} onChangeText={this.onChangePassword}/>
                      </Item>
                  </Form>
-                 {/* <Button block light style={styles.footerBottomStyle} onPress={this.onSubmit}>
-                     <Text style={styles.loginButton}>Login</Text>
-                 </Button> */}
-                 <Button block light style={styles.footerBottomStyle} onPress={this.props.navigation.navigate('Home')}>
+                 <Button block light style={styles.footerBottomStyle} onPress={this.onSubmit}>
                      <Text style={styles.loginButton}>Login</Text>
                  </Button>
             </View>

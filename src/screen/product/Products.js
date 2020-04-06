@@ -42,13 +42,25 @@ class ProductScreen extends Component {
   }
 
   deleteProduct = (productId) =>{
-    this.props.dispatch(deleteProduct(productId))
+    Alert.alert(
+      'Are you sure want to delete this product ?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Canceled'),
+          style: 'cancel'
+        },
+        {text: 'Yes', onPress:() => this.props.dispatch(deleteProduct(productId))}
+      ],
+      {cancelable: false}
+    )
   }
   searchProduct = (event) => {
     this.setState({ product: event });
     this.props.dispatch(searchProduct(event))
   }
   filterProduct = (event) => {
+    console.log('filter', event)
     this.setState({category: event});
     this.props.dispatch(filterProduct(event));
   }
@@ -106,7 +118,7 @@ class ProductScreen extends Component {
                 width: 100,
                 padding: 3
               }}
-              onValueChange={this.filterProduct}
+              onPress={()=> this.filterProduct('')}
               value=""
               >
               <Text
@@ -129,8 +141,7 @@ class ProductScreen extends Component {
                 padding: 5,
                 marginLeft: 5
               }}
-              selectedValue={this.state.category} onValueChange={this.filterProduct}
-              value={category.id}
+              selectedValue={this.state.category} onPress={()=> this.filterProduct(category.id)}
               >
               <Text
               ellipsizeMode='tail' numberOfLines={1}
@@ -144,15 +155,6 @@ class ProductScreen extends Component {
               </Text>
               </TouchableOpacity>)}
               </ScrollView>
-            {/* <Picker
-              selectedValue={this.state.category}
-              style={{height: 50, width: 100}}
-              onValueChange={this.filterProduct}>
-              <Picker.Item label="All" value="" />
-              <Picker.Item label="Indonesian Food" value="1" />
-              <Picker.Item label="Beverages" value="2" />
-              <Picker.Item label="Western" value="3" />
-            </Picker> */}
         </View>
       <View>
           <View style={{ marginTop: 10, marginLeft: 10, marginBottom: 10 }}>

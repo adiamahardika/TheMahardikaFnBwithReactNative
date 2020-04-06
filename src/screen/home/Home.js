@@ -120,8 +120,7 @@ class HomeScreen extends Component{
                 width: 100,
                 padding: 3
               }}
-              onValueChange={this.filterProduct}
-              value=""
+              onPress={()=> this.filterProduct('')}
               >
               <Text
                 style={{
@@ -143,8 +142,7 @@ class HomeScreen extends Component{
                 padding: 5,
                 marginLeft: 5
               }}
-              selectedValue={this.state.category} onValueChange={this.filterProduct}
-              value={category.id}
+              selectedValue={this.state.category} onPress={()=> this.filterProduct(category.id)}
               >
               <Text
               ellipsizeMode='tail' numberOfLines={1}
@@ -158,15 +156,6 @@ class HomeScreen extends Component{
               </Text>
               </TouchableOpacity>)}
               </ScrollView>
-            {/* <Picker
-              selectedValue={this.state.category}
-              style={{height: 50, width: 100}}
-              onValueChange={this.filterProduct}>
-              <Picker.Item label="All" value="" />
-              {categories.map((category, index) =>
-              <Picker.Item
-              label={category.name} value={category.id}/>)}
-            </Picker> */}
             </View>
             <Content>
             <View style={{ marginTop: 10, marginLeft: 10, marginBottom: 10 }}>

@@ -10,7 +10,6 @@ const products = (state = initialState, action) => {
                 
             }
             case 'GET_PRODUCT_REJECTED':
-                console.log('siniii')
             return{
                 ...state
                 
@@ -33,7 +32,6 @@ const products = (state = initialState, action) => {
                 
             }
         case 'POST_PRODUCT_FULFILLED':
-            const newDataProducts = [...state.products, action.payload.data.result];
             return{
                 ...state,
                 
@@ -50,7 +48,6 @@ const products = (state = initialState, action) => {
                 
             }
         case 'DELETE_PRODUCT_FULFILLED':
-            const newDataProductsAfterDelete = state.products.filter(product => product.id !== action.payload.data.result)
             return{
                 ...state,
                 
@@ -104,11 +101,6 @@ const products = (state = initialState, action) => {
                 
                 products: action.payload.data.result
             }
-        // case 'PAGINATION_FULFILLED':
-        //     return {
-        //         ...state
-        //         products: action.payload.data.result
-        //     }
         case 'PATCH_PRODUCT_PENDING':
             return {
                 ...state
@@ -122,16 +114,9 @@ const products = (state = initialState, action) => {
             }
 
         case 'PATCH_PRODUCT_FULFILLED':
-            const newProductAfterUpdate = state.products.map(product => {
-                if (product.id === action.payload.data.result.id) {
-                    return action.payload.data.result;
-                }
-                return product;
-            })
             return {
                 ...state,
-                
-                products: newProductAfterUpdate
+                products: action.payload.data.result
             }
         case 'MODIFY_PRODUCT_PENDING':
             return {

@@ -12,7 +12,6 @@ export const getAllCategory = () => {
 }
 
 export const postCategory = (data) => {
-    console.log('sini')
     return{
         type: 'POST_CATEGORY',
         payload: axios({
